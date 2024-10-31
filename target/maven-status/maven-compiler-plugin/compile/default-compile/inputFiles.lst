@@ -1,0 +1,7 @@
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\controller\ProductController.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\infra\config\DynamoDBConfig.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\InventoryProjectApplication.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\model\database\Product.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\model\request\ProductRequest.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\model\request\ProductResponse.java
+F:\projetos comerciais\inventory-project\src\main\java\com\jotace\inventory_project\service\ProductService.java
