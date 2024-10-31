@@ -1,47 +1,42 @@
 package com.jotace.inventory_project.service;
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB;
-import com.amazonaws.services.dynamodbv2.datamodeling.DynamoDBMapper;
-import com.amazonaws.services.dynamodbv2.document.DynamoDB;
-import com.amazonaws.services.dynamodbv2.model.ResourceNotFoundException;
 import com.jotace.inventory_project.model.database.Product;
 import com.jotace.inventory_project.model.request.ProductRequest;
 import com.jotace.inventory_project.model.request.ProductResponse;
+import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
+import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
+import software.amazon.awssdk.enhanced.dynamodb.Key;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class ProductService {
 
-    private final DynamoDBMapper dynamoDBMapper;
+    private final DynamoDbEnhancedClient dynamoDbEnhancedClient;
 
     @Autowired
-    public ProductService(DynamoDBMapper dynamoDBMapper) {
-        this.dynamoDBMapper = dynamoDBMapper;
+    public ProductService(DynamoDbEnhancedClient dynamoDbEnhancedClient) {
+        this.dynamoDbEnhancedClient = dynamoDbEnhancedClient;
     }
+
+    private static final String TABLE_NAME = "Products";
 
     public void save(ProductRequest productRequest) {
         var product = new Product(productRequest);
-        dynamoDBMapper.save(product);
+        var productTable = dynamoDbEnhancedClient.table(TABLE_NAME, TableSchema.fromBean(Product.class));
+        productTable.putItem(product);
     }
 
-
     public ProductResponse findById(String id) {
-        var product = dynamoDBMapper.load(Product.class, id);
-        if (product == null) {
-            throw new ResourceNotFoundException("Product with ID " + id + " not found");
-        }
+        var productTable = dynamoDbEnhancedClient.table(TABLE_NAME, TableSchema.fromBean(Product.class));
+        var product = productTable.getItem(Key.builder().partitionValue(id).build());
+
         return new ProductResponse(product);
     }
 
     public void delete(String id) {
-        var product = dynamoDBMapper.load(Product.class, id);
-        if (product != null) {
-            dynamoDBMapper.delete(product);
-        } else {
-            throw new ResourceNotFoundException("Product with ID " + id + " not found");
-        }
+        var productTable = dynamoDbEnhancedClient.table(TABLE_NAME, TableSchema.fromBean(Product.class));
+        productTable.deleteItem(Key.builder().partitionValue(id).build());
     }
 }
