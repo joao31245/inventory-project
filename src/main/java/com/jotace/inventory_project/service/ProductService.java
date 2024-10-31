@@ -27,6 +27,7 @@ public class ProductService {
         dynamoDBMapper.save(product);
     }
 
+
     public ProductResponse findById(String id) {
         var product = dynamoDBMapper.load(Product.class, id);
         if (product == null) {
