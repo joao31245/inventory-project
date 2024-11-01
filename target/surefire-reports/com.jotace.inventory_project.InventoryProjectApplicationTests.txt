@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: com.jotace.inventory_project.InventoryProjectApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.244 s -- in com.jotace.inventory_project.InventoryProjectApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 3.620 s -- in com.jotace.inventory_project.InventoryProjectApplicationTests
