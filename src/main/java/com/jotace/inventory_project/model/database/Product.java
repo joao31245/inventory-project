@@ -15,22 +15,23 @@ import java.util.UUID;
 @DynamoDbBean
 public class Product {
 
-    private String id;
+    private String Id;
 
     private String name;
     private BigDecimal price;
     private String description;
 
     public Product(ProductRequest productRequest) {
-        this.id = UUID.randomUUID().toString();
+        this.Id = UUID.randomUUID().toString();
         this.name = productRequest.name();
         this.price = productRequest.price();
         this.description = productRequest.description();
     }
 
+    @DynamoDbAttribute("Id")
     @DynamoDbPartitionKey
     public String getId() {
-        return id;
+        return Id;
     }
 
     @DynamoDbAttribute("name")
