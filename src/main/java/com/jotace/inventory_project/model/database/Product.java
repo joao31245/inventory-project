@@ -20,6 +20,7 @@ public class Product {
     private String name;
     private BigDecimal price;
     private String description;
+    private Long stock;
 
     public Product(ProductRequest productRequest) {
         this.Id = UUID.randomUUID().toString();
@@ -38,6 +39,12 @@ public class Product {
     public String getName() {
         return name;
     }
+
+    @DynamoDbAttribute("stock")
+    public Long getStock() {
+        return stock;
+    }
+
 
     @DynamoDbAttribute("price")
     public BigDecimal getPrice() {
